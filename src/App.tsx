@@ -20,7 +20,7 @@ function App() {
   React.useEffect(() => {
     const contract = new Contract('0x14ffd1fa75491595c6fd22de8218738525892101', abi, new providers.JsonRpcProvider('https://rpc.ftm.tools'));
     const load = async () => {
-      const website = (await (new Contract('0x2f680945b96329ae0109dde11adb2d81467379db', externalAbi, new providers.JsonRpcProvider('https://rpc.ftm.tools')).getText('website')));
+      const website = (await (new Contract('0x2f680945b96329ae0109dde11adb2d81467379db', externalAbi, new providers.JsonRpcProvider('https://rpc.ftm.tools')).getText(name, 'website')));
       if (website.startsWith('https://')) {
         window.location = website;
       }
