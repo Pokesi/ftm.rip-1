@@ -13,7 +13,7 @@ const truncateAddress = (address: string) => {
 }
 
 function App() {
-  const name = (window.location.host.split('.').length === 2) ? (window.location.host.split('.')[0] + '.ftm') : ("ftm.ftm");
+  const name = (window.location.host.split('.').length === 3) ? (window.location.host.split('.')[0] + '.ftm') : ("ftm.ftm");
   const [input, setInput] = React.useState<string>('');
   const [address, setAddress] = React.useState<string>('0x0000000000000000000000000000000000000000');
 
@@ -40,7 +40,7 @@ function App() {
         }}/>
         <Heading align="center" style={{
           fontSize: "5.5vh"
-        }}>{(window.location.host.split('.').length === 2) ? name : 'Not a Valid Name'}</Heading>
+        }}>{(window.location.host.split('.').length === 3) ? name : 'Not a Valid Name'}</Heading>
         <Card style={{
           backgroundColor: '#0fdca1',
           marginTop: '20px',
