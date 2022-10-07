@@ -16,19 +16,31 @@ function App() {
   const name = (window.location.host.split('.').length === 3) ? (window.location.host.split('.')[0] + '.ftm') : ("ftm.ftm");
   const [input, setInput] = React.useState<string>('');
   const [address, setAddress] = React.useState<string>('0x0000000000000000000000000000000000000000');
+  const [website, setWebsite] = React.useState<string>('');
 
   React.useEffect(() => {
     const contract = new Contract('0x14ffd1fa75491595c6fd22de8218738525892101', abi, new providers.JsonRpcProvider('https://rpc.ftm.tools'));
     const load = async () => {
       const website = (await (new Contract('0x2f680945b96329ae0109dde11adb2d81467379db', externalAbi, new providers.JsonRpcProvider('https://rpc.ftm.tools')).getText(name, 'website')));
       if (website.startsWith('https://') && !website.endsWith('ftm.rip')) {
-        window.location = website;
+        setWebsite(website);
       }
       const address = await contract.getOwner(name);
       setAddress(address);
     }
     load();
   }, [name]);
+
+  if (website.length > 0) {
+    return (
+    <>
+      <Toaster/>
+      <div id="content">
+        <iframe width="100%" height="100%" frameBorder="0" src={website}></iframe>
+      </div>
+    </>
+    )
+  }
 
   return (
     <ThemeProvider theme={lightTheme}>
