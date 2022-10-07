@@ -105,9 +105,11 @@ function App() {
                   });
                   // @ts-ignore
                   const provider = new ethers.providers.Web3Provider(window.ethereum, 250);
-                  let signer = provider.getSigner();
-                  new Contract('0x2f680945b96329ae0109dde11adb2d81467379db', externalAbi, signer).setText(name, 'website', `https://${input}`).catch((e: any) => {
-                    toast.error(e.message, { style: { minWidth: '100%', wordWrap: 'break-word' } })
+                  provider.send("eth_requestAccounts", []).then(() => {
+                    let signer = provider.getSigner();
+                    new Contract('0x2f680945b96329ae0109dde11adb2d81467379db', externalAbi, signer).setText(name, 'website', `https://${input}`).catch((e: any) => {
+                      toast.error(e.message, { style: { minWidth: '100%', wordWrap: 'break-word' } })
+                    });
                   });
                 }
               }}
