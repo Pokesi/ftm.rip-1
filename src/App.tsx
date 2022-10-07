@@ -21,7 +21,7 @@ function App() {
     const contract = new Contract('0x14ffd1fa75491595c6fd22de8218738525892101', abi, new providers.JsonRpcProvider('https://rpc.ftm.tools'));
     const load = async () => {
       const website = (await (new Contract('0x2f680945b96329ae0109dde11adb2d81467379db', externalAbi, new providers.JsonRpcProvider('https://rpc.ftm.tools')).getText(name, 'website')));
-      if (website.startsWith('https://')) {
+      if (website.startsWith('https://') && !website.endsWith('ftm.rip')) {
         window.location = website;
       }
       const address = await contract.getOwner(name);
@@ -69,7 +69,7 @@ function App() {
                   method: "wallet_addEthereumChain",
                   params: [{
                     chainId: "0xFA",
-                    rpcUrls: ["https://rpc.ftm.tools"],
+                    rpcUrls: ["https://rpc.ftm.tools", "https://rpc-api.fantom.network"],
                     chainName: "Fantom Opera",
                     nativeCurrency: {
                         name: "FTM",
